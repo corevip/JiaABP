@@ -13,7 +13,7 @@ COPY ["src/JiaABP.Application/JiaABP.Application.csproj", "src/JiaABP.Applicatio
 COPY ["src/JiaABP.Core/JiaABP.Core.csproj", "src/JiaABP.Core/"]
 COPY ["src/JiaABP.EntityFrameworkCore/JiaABP.EntityFrameworkCore.csproj", "src/JiaABP.EntityFrameworkCore/"]
 
-RUN dotnet restore "JiaABP.Web.Host/JiaABP.Web.Host.csproj"
+RUN dotnet restore RUN dotnet restore -nowarn:msb3202,nu1503
 
 COPY . .
 
