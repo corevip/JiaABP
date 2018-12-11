@@ -13,14 +13,15 @@ COPY ["src/JiaABP.Application/JiaABP.Application.csproj", "src/JiaABP.Applicatio
 COPY ["src/JiaABP.Core/JiaABP.Core.csproj", "src/JiaABP.Core/"]
 COPY ["src/JiaABP.EntityFrameworkCore/JiaABP.EntityFrameworkCore.csproj", "src/JiaABP.EntityFrameworkCore/"]
 
-RUN dotnet restore RUN dotnet restore -nowarn:msb3202,nu1503
+#RUN dotnet restore RUN dotnet restore -nowarn:msb3202,nu1503
+RUN dotnet restore "src/JiaABP.Web.Host/JiaABP.Web.Host.csproj"
 
 COPY . .
 
-RUN dotnet build "JiaABP.Web.Host/JiaABP.Web.Host.csproj" -c Release -o /app
+RUN dotnet build "src/JiaABP.Web.Host/JiaABP.Web.Host.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "JiaABP.Web.Host/JiaABP.Web.Host.csproj" -c Release -o /app
+RUN dotnet publish "src/JiaABP.Web.Host/JiaABP.Web.Host.csproj" -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
