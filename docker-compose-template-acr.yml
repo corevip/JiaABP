@@ -1,0 +1,5 @@
+version: '3'
+
+services:
+  jiaabp:
+    image: labstest.azurecr.io/jiaabp:#{Build.BuildId}#

@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  jiaabp:
+    image: jiaabp
+    build:
+      context: .
+      dockerfile: jiaabp/Dockerfile

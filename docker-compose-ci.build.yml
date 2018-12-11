@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  devopslabs-ci-build:
+    image: microsoft/dotnet
+    volumes:
+      - .:/src
+    working_dir: /src
+    command: /bin/bash -c "dotnet restore ./src/JiaABP.Web.Host/JiaABP.Web.Host.csproj && dotnet publish ./src/JiaABP.Web.Host/JiaABP.Web.Host.csproj -c Release -o ./obj/Docker/publish"
+
