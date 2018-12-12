@@ -1,27 +1,21 @@
-FROM microsoft/dotnet AS base
-WORKDIR /app
-EXPOSE 80
-
-FROM microsoft/dotnet AS build
-
+FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["src/JiaABP.Web.Host/JiaABP.Web.Host.csproj", "src/JiaABP.Web.Host/"]
-COPY ["src/JiaABP.Migrator/JiaABP.Migrator.csproj", "src/JiaABP.Migrator/"]
-COPY ["src/JiaABP.Web.Core/JiaABP.Web.Core.csproj", "src/JiaABP.Web.Core/"]
-COPY ["src/JiaABP.Application/JiaABP.Application.csproj", "src/JiaABP.Application/"]
-COPY ["src/JiaABP.Core/JiaABP.Core.csproj", "src/JiaABP.Core/"]
-COPY ["src/JiaABP.EntityFrameworkCore/JiaABP.EntityFrameworkCore.csproj", "src/JiaABP.EntityFrameworkCore/"]
-
-#RUN dotnet restore RUN dotnet restore -nowarn:msb3202,nu1503
-RUN dotnet restore "src/JiaABP.Web.Host/JiaABP.Web.Host.csproj"
+COPY ["src/JiaABP.Web.Host/JiaABP.Web.Host.csproj","JiaABP.Web.Host/"]
+COPY ["src/JiaABP.Migrator/JiaABP.Migrator.csproj","JiaABP.Migrator/"]
+COPY ["src/JiaABP.Web.Core/JiaABP.Web.Core.csproj","JiaABP.Web.Core/"]
+COPY ["src/JiaABP.Application/JiaABP.Application.csproj","JiaABP.Application/"]
+COPY ["src/JiaABP.Core/JiaABP.Core.csproj","JiaABP.Core/"]
+COPY ["src/JiaABP.EntityFrameworkCore/JiaABP.EntityFrameworkCore.csproj","JiaABP.EntityFrameworkCore/"]
+RUN dotnet restore "JiaABP.Web.Host/JiaABP.Web.Host.csproj"
 COPY . .
-
-RUN dotnet build "src/JiaABP.Web.Host/JiaABP.Web.Host.csproj" -c Release -o /app
+WORKDIR "/src/JiaABP.Web.Host"
+RUN dotnet build "JiaABP.Web.Host.csproj" -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "src/JiaABP.Web.Host/JiaABP.Web.Host.csproj" -c Release -o /app
+RUN dotnet publish "JiaABP.Web.Host.csproj" -c Release -o /app
 
-FROM base AS final
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 WORKDIR /app
 COPY --from=publish /app .
+EXPOSE 80
 ENTRYPOINT ["dotnet", "JiaABP.Web.Host.dll"]
