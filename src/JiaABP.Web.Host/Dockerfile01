@@ -15,12 +15,11 @@ COPY . .
 WORKDIR "/src/JiaABP.Web.Host"
 RUN dotnet build "JiaABP.Web.Host.csproj" -c Release -o /app
 
-WORKDIR "/src/JiaABP.Web.Host"
-FROM build AS publish
-RUN dotnet publish "JiaABP.Web.Host.csproj" -c Release -o /app
+# FROM build AS publish
+# RUN dotnet publish "JiaABP.Web.Host.csproj" -c Release -o /app
 
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "JiaABP.Web.Host.dll"]
+# FROM base AS final
+# WORKDIR /app
+# COPY --from=publish /app .
+# ENTRYPOINT ["dotnet", "JiaABP.Web.Host.dll"]
 
