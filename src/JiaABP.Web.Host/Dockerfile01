@@ -1,8 +1,8 @@
-FROM microsoft/dotnet AS base
+FROM microsoft/dotnet:2.1-aspnetcore-runtime AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/dotnet AS build
+FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
 COPY ["src/JiaABP.Web.Host/JiaABP.Web.Host.csproj","JiaABP.Web.Host/"]
 COPY ["src/JiaABP.Migrator/JiaABP.Migrator.csproj","JiaABP.Migrator/"]
@@ -22,4 +22,3 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "JiaABP.Web.Host.dll"]
-
