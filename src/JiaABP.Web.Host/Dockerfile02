@@ -3,7 +3,7 @@ WORKDIR /app
 
 # copy csproj and restore as distinct layers
 COPY *.sln .
-COPY src/*.csproj ./aspnetapp/
+COPY src/JiaABP.Web.Host/*.csproj ./aspnetapp/
 RUN dotnet restore
 
 # copy everything else and build app
