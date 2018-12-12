@@ -25,3 +25,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "JiaABP.Web.Host.dll"]
+
+#可以build成功，但是生成的镜像非常大

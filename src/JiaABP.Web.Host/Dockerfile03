@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk AS build
+FROM microsoft/dotnet AS build
 WORKDIR /src
 COPY ["src/JiaABP.Web.Host/JiaABP.Web.Host.csproj","JiaABP.Web.Host/"]
 COPY ["src/JiaABP.Migrator/JiaABP.Migrator.csproj","JiaABP.Migrator/"]
