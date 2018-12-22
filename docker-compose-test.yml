@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  devopslabs-ci-test:
+    image: microsoft/dotnet:2.1-sdk
+    volumes:
+      - .:/src
+    working_dir: test
+    command: /bin/bash -c "dotnet restore ./JiaABP.Tests.csproj && dotnet test --logger \"trx;logfilename=TEST.xml\""
+
